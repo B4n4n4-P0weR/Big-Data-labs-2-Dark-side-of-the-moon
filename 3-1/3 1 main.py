@@ -13,6 +13,9 @@ values_df['HP Base'] = values_df['HP Base'].astype(float)
 # Сортировка по столбцам 'Height'
 values_df.sort_values(by=['Height', 'Weight'], inplace=True)
 
+# Оригинальные данные для сравнения
+original_data = values_df.copy()
+
 # Пересчет среднего значения и стандартного отклонения для всего датасета
 mean_weight = values_df['Weight'].mean()
 std_weight = values_df['Weight'].std()
@@ -25,31 +28,25 @@ simple_filtered_data = values_df[(values_df['Weight'] <= weight_threshold) & (va
 
 # Просмотр результатов после применения упрощенного метода фильтрации
 print(simple_filtered_data[['Pokemon', 'Height', 'Weight']].head())
-
+print(original_data[['Pokemon', 'Height', 'Weight']].head())
 
 # Визуализация
-plt.figure()
+plt.figure(figsize=(12, 6))
 
-values_arr_Height = np.array(simple_filtered_data)[:, 3]
-values_arr_Weight = np.array(simple_filtered_data)[:, 4]
-
-x = np.linspace(values_arr_Height[0], values_arr_Height[values_arr_Height.size - 1], values_arr_Height.size)
-
-plt.plot(x, values_arr_Height,  'g', label='Height')
-
+# График без аномалий
+# plt.subplot(1, 2, 2)
+plt.plot(simple_filtered_data['Height'], simple_filtered_data['Weight'], 'g', label='Без аномалий')
+plt.title('График без аномалий')
+plt.xlabel('Height')
+plt.ylabel('Weight')
 plt.legend()
-plt.xlabel(' ')
-plt.ylabel(' ')
-plt.title('1')
-
 plt.show()
 
-plt.figure()
-plt.plot(x, values_arr_Weight,  'b', label='Weight')
-
+# График с аномалиями
+# plt.subplot(1, 2, 2)
+plt.plot(original_data['Height'], original_data['Weight'], 'b', label='С аномалиями')
+plt.title('График с аномалиями')
+plt.xlabel('Height')
+plt.ylabel('Weight')
 plt.legend()
-plt.xlabel(' ')
-plt.ylabel(' ')
-plt.title('2')
-
 plt.show()
