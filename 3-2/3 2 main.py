@@ -57,6 +57,15 @@ import matplotlib.pyplot as plt
 plt.figure(figsize=(14, 7))
 plt.plot(data.index, data['Close'], label='Цена закрытия (Close)', color='green')
 
+# Отображение коэффициентов и RMSE в левом верхнем углу графика
+r2_text = f"Коэффициент детерминации (R²): {np.round(r2, 4)}"
+coeff_text = f"Коэффициенты модели: {np.round(model.coef_, 4)}"
+rmse_text = f"Среднеквадратичная ошибка (RMSE): {np.round(rmse, 4)}"
+plt.text(data.index[0], max(data['Close']) * 1.01, r2_text, fontsize=12, color='black', verticalalignment='top')
+plt.text(data.index[0], max(data['Close']) * 0.96, rmse_text, fontsize=12, color='black', verticalalignment='top')
+plt.text(data.index[0], max(data['Close']) * 0.91, coeff_text, fontsize=12, color='black', verticalalignment='top')
+
+
 plt.title('Динамика цены закрытия акций Apple')
 plt.xlabel('Дата')
 plt.ylabel('Цена закрытия')
