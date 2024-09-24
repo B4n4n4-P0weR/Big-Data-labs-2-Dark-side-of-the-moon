@@ -6,8 +6,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, root_mean_squared_error
 
 # Загрузка данных
-file_path = "/Users/vlad/Developer/Oskin's labs/3-2/AAPL.csv"
-data = pd.read_csv(file_path)
+data = pd.read_csv("AAPL.csv")
 
 # Преобразование даты в формат datetime и установка её в качестве индекса
 data['Date'] = pd.to_datetime(data['Date'])
