@@ -3,28 +3,28 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Чтение данных
-values_df = pd.read_csv("/Users/vlad/Desktop/Oskin's labs 2 Dark side of the moon/3-1/pokemonDB_dataset.csv", delimiter=',')
+data = pd.read_csv("/Users/vlad/Desktop/Oskin's labs 2 Dark side of the moon/3-1/pokemonDB_dataset.csv", delimiter=',')
 
 # Очистка данных и конвертация в числовой формат
-values_df['Height'] = values_df['Height'].str.extract(r'(\d+\.\d+)').astype(float)
-values_df['Weight'] = values_df['Weight'].str.extract(r'(\d+\.\d+)').astype(float)
-values_df['HP Base'] = values_df['HP Base'].astype(float)
+data['Height'] = data['Height'].str.extract(r'(\d+\.\d+)').astype(float)
+data['Weight'] = data['Weight'].str.extract(r'(\d+\.\d+)').astype(float)
+data['HP Base'] = data['HP Base'].astype(float)
 
 # Сортировка по столбцам 'Height'
-values_df.sort_values(by=['Height', 'Weight'], inplace=True)
+data.sort_values(by=['Height', 'Weight'], inplace=True)
 
 # Оригинальные данные для сравнения
-original_data = values_df.copy()
+original_data = data.copy()
 
 # Пересчет среднего значения и стандартного отклонения для всего датасета
-mean_weight = values_df['Weight'].mean()
-std_weight = values_df['Weight'].std()
+mean_weight = data['Weight'].mean()
+std_weight = data['Weight'].std()
 
 # Установка порога для определения аномалий на уровне среднее значение + 3 стандартных отклонения
 weight_threshold = mean_weight + 5 * std_weight
 
 # Применение этого порога для фильтрации данных
-simple_filtered_data = values_df[(values_df['Weight'] <= weight_threshold) & (values_df['Weight'] != '—')]
+simple_filtered_data = data[(data['Weight'] <= weight_threshold) & (data['Weight'] != '—')]
 
 # Просмотр результатов после применения упрощенного метода фильтрации
 print(simple_filtered_data[['Pokemon', 'Height', 'Weight']].head())
