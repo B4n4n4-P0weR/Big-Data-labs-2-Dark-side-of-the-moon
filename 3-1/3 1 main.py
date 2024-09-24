@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Чтение данных
-values_df = pd.read_csv("/Users/vlad/Desktop/Oskin's labs/3-1/pokemonDB_dataset.csv", delimiter=',')
+values_df = pd.read_csv("/Users/vlad/Desktop/Oskin's labs 2 Dark side of the moon/3-1/pokemonDB_dataset.csv", delimiter=',')
 
 # Очистка данных и конвертация в числовой формат
 values_df['Height'] = values_df['Height'].str.extract(r'(\d+\.\d+)').astype(float)
