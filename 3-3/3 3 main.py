@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
+import numpy as np
 
 # Загрузка данных
 data = pd.read_csv('Spotify Most Streamed Songs.csv', delimiter=',')
@@ -17,17 +18,23 @@ scaler = StandardScaler()
 scaled_data = scaler.fit_transform(data[numerical_features])
 
 # Применение PCA
-pca = PCA(n_components=2)  # Например, сокращаем до 2 компонент для визуализации
+pca = PCA(n_components=2)  # Сокращаем до 2 компонент для визуализации
 pca_result = pca.fit_transform(scaled_data)
 
 # Визуализация первых двух главных компонент
-# Эти оси представляют преобразованные признаки, которые объясняют основную часть разброса данных
-# То есть, ось X (PC1) объясняет наибольшую часть вариации, а ось Y (PC2) — следующую по значимости
 plt.figure(figsize=(8, 6))
 plt.scatter(pca_result[:, 0], pca_result[:, 1], c='blue', label='Data Points')
 plt.title('PCA of Music Dataset')
-plt.xlabel('Principal Component 1')
-plt.ylabel('Principal Component 2')
+
+# Изменяем оси, чтобы указать главные компоненты с максимальным вкладом
+component_names = np.array(numerical_features)[np.argmax(abs(pca.components_), axis=1)]
+
+plt.xlabel(f'Principal Component 1 ({component_names[0]})')
+plt.ylabel(f'Principal Component 2 ({component_names[1]})')
+
+# energy - Perceived energy level of the song
+# streams
+
 plt.legend()
 plt.show()
 
