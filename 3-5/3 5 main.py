@@ -67,5 +67,5 @@ submission_data = pd.read_csv("gender_submission.csv")[['PassengerId']]
 submission_data['Survived'] = y_pred  # Добавляем предсказания модели в колонку 'Survived'
 
 # 9. Сохранение предсказаний в файл
-submission_data.to_csv('submission.csv', index=False)
+submission_data.to_csv('res/submission.csv', index=False)
 print("Предсказания сохранены в файл submission.csv")
