@@ -5,8 +5,8 @@ from sklearn.svm import SVC
 from sklearn.model_selection import cross_val_score
 
 # 1. Загрузка данных
-train_data = pd.read_csv("train.csv")
-test_data = pd.read_csv("test.csv")
+train_data = pd.read_csv('../titanic/train.csv')
+test_data = pd.read_csv('../titanic/test.csv')
 
 # 2. Предобработка данных
 # Заполнение пропущенных значений
@@ -54,7 +54,7 @@ print("Предсказания модели для тестовой выбор�
 print(y_pred[:10])  # Проверим первые 10 предсказаний
 
 # Преобразуем y_train в массив NumPy и выведем первые 10 значений
-real_data = pd.read_csv("gender_submission.csv")
+real_data = pd.read_csv("../titanic/gender_submission.csv")
 y_real = real_data['Survived']
 y_real_array = np.array(y_real)  # Преобразуем в NumPy массив
 
@@ -63,7 +63,7 @@ print(y_real_array[:10])  # Первые 10 значений в виде мас�
 
 # 8. Формирование файла для отправки (submission.csv)
 # Используем только колонку 'PassengerId' из gender_submission.csv
-submission_data = pd.read_csv("gender_submission.csv")[['PassengerId']]
+submission_data = pd.read_csv("../titanic/gender_submission.csv")[['PassengerId']]
 submission_data['Survived'] = y_pred  # Добавляем предсказания модели в колонку 'Survived'
 
 # 9. Сохранение предсказаний в файл

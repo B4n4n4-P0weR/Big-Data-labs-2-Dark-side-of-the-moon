@@ -5,9 +5,9 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import accuracy_score
 
 # Чтение файлов
-train_data = pd.read_csv('train.csv')
-test_data = pd.read_csv('test.csv')
-gender_submission = pd.read_csv('gender_submission.csv')
+train_data = pd.read_csv('../titanic/train.csv')
+test_data = pd.read_csv('../titanic/test.csv')
+gender_submission_data = pd.read_csv('../titanic/gender_submission.csv')
 
 # Удалим ненужные для модели столбцы
 train_data_clean = train_data.drop(columns=['PassengerId', 'Name', 'Ticket', 'Cabin'])
@@ -52,7 +52,7 @@ y_pred = mlp.predict(X_test)
 y_pred = y_pred.astype(int)
 
 # Сравнение с реальными ответами
-real_y = gender_submission['Survived']
+real_y = gender_submission_data['Survived']
 accuracy = accuracy_score(real_y, y_pred)
 
 # Запись предсказаний в файл "submission.csv"
