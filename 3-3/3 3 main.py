@@ -32,9 +32,6 @@ component_names = np.array(numerical_features)[np.argmax(abs(pca.components_), a
 plt.xlabel(f'Principal Component 1 ({component_names[0]})')
 plt.ylabel(f'Principal Component 2 ({component_names[1]})')
 
-# energy - Perceived energy level of the song
-# streams
-
 plt.legend()
 plt.show()
 
