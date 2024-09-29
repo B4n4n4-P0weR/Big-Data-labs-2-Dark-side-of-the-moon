@@ -1,8 +1,10 @@
 import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
 from sklearn.neural_network import MLPClassifier
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, mean_squared_error, mean_absolute_error
 
 # Чтение файлов
 train_data = pd.read_csv('../titanic/train.csv')
@@ -21,10 +23,6 @@ test_data_clean['Fare'] = test_data_clean['Fare'].fillna(test_data_clean['Fare']
 
 # Объединение тренировочного и тестового наборов для кодирования категориальных переменных
 combined_data = pd.concat([train_data_clean, test_data_clean], axis=0, ignore_index=True)
-
-# Преобразование данных в строки для корректного кодирования
-combined_data['Sex'] = combined_data['Sex'].astype(str)
-combined_data['Embarked'] = combined_data['Embarked'].astype(str)
 
 # Преобразование категориальных переменных в числовые
 label_encoder = LabelEncoder()
@@ -55,6 +53,25 @@ y_pred = y_pred.astype(int)
 real_y = gender_submission_data['Survived']
 accuracy = accuracy_score(real_y, y_pred)
 
+# Метрики ошибки
+mse = mean_squared_error(real_y, y_pred)
+mae = mean_absolute_error(real_y, y_pred)
+rmse = np.sqrt(mse)
+
+# Вывод метрик
+print(f"Средняя точность модели: {accuracy * 100:.2f}%")
+print(f"MSE: {mse:.4f}")
+print(f"MAE: {mae:.4f}")
+print(f"RMSE: {rmse:.4f}")
+
+# Визуализация процесса обучения
+plt.plot(mlp.loss_curve_)
+plt.title('Кривая обучения нейронной сети')
+plt.xlabel('Итерации')
+plt.ylabel('Ошибка')
+plt.grid(True)
+plt.show()
+
 # Запись предсказаний в файл "submission.csv"
 submission = pd.DataFrame({
     'PassengerId': test_data['PassengerId'],
@@ -70,4 +87,3 @@ pred_vs_real = pd.DataFrame({
 
 print("Первые 10 предсказаний и реальные значения:")
 print(pred_vs_real)
-print(f"\nСредняя точность модели: {accuracy * 100:.2f}%")
