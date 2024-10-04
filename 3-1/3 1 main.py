@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
 
 # Чтение данных
@@ -8,7 +7,6 @@ data = pd.read_csv("pokemonDB_dataset.csv", delimiter=',')
 # Очистка данных и конвертация в числовой формат
 data['Height'] = data['Height'].str.extract(r'(\d+\.\d+)').astype(float)
 data['Weight'] = data['Weight'].str.extract(r'(\d+\.\d+)').astype(float)
-data['HP Base'] = data['HP Base'].astype(float)
 
 # Сортировка по столбцам 'Height'
 data.sort_values(by=['Height', 'Weight'], inplace=True)
@@ -34,7 +32,6 @@ print(original_data[['Pokemon', 'Height', 'Weight']].head())
 plt.figure(figsize=(12, 6))
 
 # График без аномалий
-# plt.subplot(1, 2, 2)
 plt.plot(simple_filtered_data['Height'], simple_filtered_data['Weight'], 'g', label='Без аномалий')
 plt.title('График без аномалий')
 plt.xlabel('Height')
@@ -43,7 +40,6 @@ plt.legend()
 plt.show()
 
 # График с аномалиями
-# plt.subplot(1, 2, 2)
 plt.plot(original_data['Height'], original_data['Weight'], 'b', label='С аномалиями')
 plt.title('График с аномалиями')
 plt.xlabel('Height')
